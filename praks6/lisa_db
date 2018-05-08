@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+#
+#
+#
+kasutaja=$1
+parool=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w30 | head -n1)
+echo "password=$parool" > .parool.tmp
+
+
+	if [ $# -ne 1 ]; then
+		echo "Kasutusjuhend: $0 Kasutajanimi"
+
+echo " Sisesta Andmebaasi root parool:"
+	read rootpass
+
+	echo "[mysql]" > /home/$kasutaja/.my.cnf
+	echo "user=$kasutaja" >> /home/$kasutaja/.my.cnf
+	paste .parool.tmp >> /home/$kasutaja/.my.cnf
+	echo "[mysqladmin]" >> /home/$kasutaja/.my.cnf
+	echo "user=$kasutaja" >> /home/$kasutaja/.my.cnf
+	paste .parool.tmp >> /home/$kasutaja/.my.cnf
+
+echo "Sisesta andmebaasi nimi"
+read dbnimi
+dbname="$kasutaja""_""$dbnimi"
+
