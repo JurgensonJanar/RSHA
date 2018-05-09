@@ -45,12 +45,12 @@ dbname2="$user""_""$dbname1"
 
 for dbpass in $(cat .parool1.tmp)
 do
-mysql -uroot -p$rootpass -e "create database $dbname2 ; GRANT ALL PRIVILEGES ON $dbname2.* TO $user@localhost IDENTI$
+mysql -uroot -p$rootpass -e "create database $dbname2 ; GRANT ALL PRIVILEGES ON $dbname2.* TO $user@localhost IDENTIFIED BY '$dbpass'"
         echo "Andmebaas vajalike parameetritega loodud"
 done
 
         chmod 0644 /home/$user/.my.cnf
-        chown "$user"":""$user" /home/$user/.my.cnf
+	chown "$user"":""$user" /home/$user/.my.cnf
         rm .parool1.tmp
         rm .parool.tmp
 fi
